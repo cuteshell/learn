@@ -4,17 +4,25 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="{{asset('css/ch-ui.admin.css')}}" type='text/css'>
 	<link rel="stylesheet" href="{{asset('font/css/font-awesome.min.css')}}">
+    <style>
+        .footer_bottom {
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            bottom:12px;
+        }
+    </style>
 </head>
 <body style="background:#F3F3F4;">
 	<div class="login_box">
-		<h1>Blog</h1>
+        <h1>Blog</h1>
 		<h2>欢迎使用博客管理平台</h2>
 		<div class="form">
-			<p style="color:red">用户名错误</p>
-			<form action="#" method="post">
+			<form action="" method="post">
+				{{csrf_field()}}
 				<ul>
 					<li>
-					<input type="text" name="username" class="text"/>
+						<input type="text" name="email" class="text" value="{{old('email')}}"/>
 						<span><i class="fa fa-user"></i></span>
 					</li>
 					<li>
@@ -31,8 +39,13 @@
 					</li>
 				</ul>
 			</form>
-			<p><a href="#">返回首页</a> &copy; 2016 Powered by <a href="http://www.houdunwang.com" target="_blank">http://www.houdunwang.com</a></p>
+			@foreach($errors->all() as $error)
+				<p style="color: red;background-color: antiquewhite">{{$error}}</p>
+			@endforeach
 		</div>
 	</div>
+    <div class="footer_bottom">
+        <p><a href="#">返回首页</a> &copy; 2016 Powered by <a href="http://blog.cuteshell.com" target="_blank">http://blog.cuteshell.com</a></p>
+    </div>
 </body>
 </html>

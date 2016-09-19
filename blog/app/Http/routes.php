@@ -16,11 +16,16 @@ Route::get('/', function () {
 });
 
 
-Route::group(['middleware' => ['web']], function () {
+Route::get('index', 'IndexController@index');
 
-    Route::get('index', 'IndexController@index');
-    Route::get('admin/login', 'Admin\LoginController@login');
-    Route::get('admin/code', 'Admin\LoginController@code');
-    Route::get('admin/getcode', 'Admin\LoginController@getCode');
-});
+Route::get('admin/code', 'Admin\CommonController@code');
+
+Route::get('admin/login', 'Auth\AuthController@getLogin');
+Route::post('admin/login', 'Auth\AuthController@postLogin')->middleware('code');
+
+Route::get('admin/register', 'Auth\AuthController@getRegister');
+Route::post('admin/register', 'Auth\AuthController@postRegister')->middleware('code');
+
+Route::get('admin/logout', 'Auth\AuthController@getLogout');
+
 
