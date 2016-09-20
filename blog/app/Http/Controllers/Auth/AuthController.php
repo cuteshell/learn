@@ -30,14 +30,23 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/';
 
+
+    /**
+     * Where to redirect users after logout
+     * @var string
+     */
+    protected $redirectAfterLogout = '/admin/login';
     /**
      * Create a new authentication controller instance.
+     *
+     * Note:Can't logout ,We should exclude getLogout from guest middleware
+     * reference:http://stackoverflow.com/questions/34479994/laravel-5-2-authlogout-is-not-working
      *
      * @return void
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => 'getLogout']);
     }
 
     /**
