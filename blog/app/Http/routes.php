@@ -16,7 +16,8 @@ Route::get('/', function () {
 });
 
 
-Route::get('index', 'IndexController@index');
+Route::get('admin/index', 'Admin\IndexController@index');
+Route::get('admin/info', 'Admin\IndexController@info');
 
 Route::get('admin/code', 'Admin\CommonController@code');
 
