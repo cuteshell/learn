@@ -16,17 +16,38 @@ Route::get('/', function () {
 });
 
 
-Route::get('admin/index', 'Admin\IndexController@index');
-Route::get('admin/info', 'Admin\IndexController@info');
+Route::group(['prefix'=>'admin'], function () {
 
-Route::get('admin/code', 'Admin\CommonController@code');
+    Route::group(['namespace'=>'Admin'], function () {
 
-Route::get('admin/login', 'Auth\AuthController@getLogin');
-Route::post('admin/login', 'Auth\AuthController@postLogin')->middleware('code');
+        Route::get('code', 'CommonController@code');
 
-Route::get('admin/register', 'Auth\AuthController@getRegister');
-Route::post('admin/register', 'Auth\AuthController@postRegister')->middleware('code');
+        Route::group(['middleware'=>['auth']] ,function () {
+            Route::get('test', 'IndexController@test');
+            Route::get('index', 'IndexController@index');
+            Route::get('info', 'IndexController@info');
+        });
+    });
 
-Route::get('admin/logout', 'Auth\AuthController@getLogout');
+    Route::group(['namespace'=>'Auth'], function () {
+
+        Route::get('login', 'AuthController@getLogin');
+        Route::get('register', 'AuthController@getRegister');
+        Route::get('logout', 'AuthController@getLogout');
+
+        Route::group(['middleware'=>'code'], function () {
+            Route::post('login', 'AuthController@postLogin');
+            Route::post('register', 'AuthController@postRegister');
+        });
+
+        Route::group(['middleware'=>['auth']], function () {
+            Route::get('change', 'PasswordController@getChange');
+            Route::post('change', 'PasswordController@postChange');
+        });
+
+    });
+});
+
+
 
 
