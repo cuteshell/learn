@@ -20,6 +20,8 @@ Route::group(['prefix'=>'admin'], function () {
 
     Route::group(['namespace'=>'Admin'], function () {
 
+        Route::resource('category', 'CategoryController');
+
         Route::get('code', 'CommonController@code');
 
         Route::group(['middleware'=>['auth']] ,function () {
