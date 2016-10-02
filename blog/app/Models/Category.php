@@ -10,7 +10,7 @@ class Category extends Model
 
     public function children()
     {
-        return $this->hasMany('App\Models\Category','pid');
+        return $this->hasMany('App\Models\Category','pid')->orderBy('order');
     }
 
     public function parent()

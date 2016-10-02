@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{asset('font/css/font-awesome.min.css')}}">
     <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/ch-ui.admin.js')}}"></script>
-
+    <script type="text/javascript" src="{{asset('vender/layer/layer.js')}}"></script>
     @yield('style')
 </head>
 <body>

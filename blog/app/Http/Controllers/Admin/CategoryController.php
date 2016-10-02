@@ -17,13 +17,13 @@ class CategoryController extends CommonController
      */
     public function index()
     {
-        $categories = Category::where('pid',0)->get();
+        $categories = Category::where('pid',0)->orderBy('order')->get();
 
         $data = $this->getTree($categories);
         return view('admin.category.index')->with('data', $data);
     }
 
-    public function getTree($data, $pid = 0, &$tree = [],$prefix = '')
+    public function getTree($data, $pid = 0, &$tree = [], $prefix = '')
     {
         if(is_int($pid)) {
             $pid = (string)$pid;
@@ -37,6 +37,23 @@ class CategoryController extends CommonController
         }
 
         return $tree;
+    }
+
+    public function changeOrder(Request $request)
+    {
+        $category = Category::find($request->cate_id);
+        $category->order = $request->cate_order;
+        if($category->update()) {
+            return [
+                'status'=>0,
+                'msg'=>'分类排序修改成功！'
+            ];
+        } else {
+            return [
+                'status'=>1,
+                'msg'=>'分类排序修改失败！'
+            ];
+        }
     }
     /**
      * Show the form for creating a new resource.
