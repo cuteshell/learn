@@ -10,6 +10,9 @@ use App\Http\Requests;
 
 class CategoryController extends CommonController
 {
+    protected $redirectAfterAddCate = '/admin/category';
+
+
     /**
      * Display a listing of the resource.
      *
@@ -62,7 +65,8 @@ class CategoryController extends CommonController
      */
     public function create()
     {
-        //
+        $categories = Category::where('pid', 0)->get();
+        return view('admin.category.add', compact('categories'));
     }
 
     /**
@@ -71,9 +75,20 @@ class CategoryController extends CommonController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\AddCateRequest $request)
     {
-        //
+        $input = $request->except('_token');
+        $category = Category::create([
+            'pid'=>$input['cate_pid'],
+            'name'=>$input['cate_name'],
+            'title'=>$input['cate_title'],
+            'keywords'=>$input['cate_keywords'],
+            'description'=>$input['cate_description'],
+            'order'=>$input['cate_order'],
+        ]);
+        if($category) {
+            return redirect($this->redirectAfterAddCate);
+        }
     }
 
     /**
