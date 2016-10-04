@@ -20,15 +20,15 @@ Route::group(['prefix'=>'admin'], function () {
 
     Route::group(['namespace'=>'Admin'], function () {
 
-        Route::resource('category', 'CategoryController');
-        Route::post('cate/changeorder', 'CategoryController@changeOrder');
-
         Route::get('code', 'CommonController@code');
 
         Route::group(['middleware'=>['auth']] ,function () {
             Route::get('test', 'IndexController@test');
             Route::get('index', 'IndexController@index');
             Route::get('info', 'IndexController@info');
+
+            Route::resource('category', 'CategoryController');
+            Route::post('cate/changeorder', 'CategoryController@changeOrder');
 
         });
     });

@@ -151,6 +151,19 @@ class CategoryController extends CommonController
      */
     public function destroy($id)
     {
-        //
+        Category::where('pid',$id)->update(['pid'=>0]);
+        $ret = Category::find($id)->delete();
+        if($ret) {
+            $data = [
+                'status'=>0,
+                'msg'=>'分类删除成功',
+            ];
+        } else {
+            $data = [
+                'status'=>1,
+                'msg'=>'分类删除失败，请联系管理员',
+            ];
+        }
+        return $data;
     }
 }

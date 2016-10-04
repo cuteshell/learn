@@ -17,7 +17,7 @@ class VerificationCode
     public function handle($request, Closure $next)
     {
         if(strtoupper($request->code) != $this->getCode()) {
-            return redirect()->back()->withInput($request->input())->withErrors('verification code error');
+            return redirect()->back()->withInput($request->input())->withErrors('验证码错误!');
         }
         return $next($request);
     }
