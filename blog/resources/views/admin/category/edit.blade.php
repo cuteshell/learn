@@ -4,7 +4,7 @@
 <!--面包屑导航 开始-->
 <div class="crumb_warp">
     <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-    <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">分类管理</a> &raquo; 添加分类
+    <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">分类管理</a> &raquo; 修改分类
 </div>
 <!--面包屑导航 结束-->
 
@@ -31,7 +31,8 @@
             </div>
         @endforeach
     </div>
-    <form action="{{url('admin/category')}}" method="post">
+    <form action="{{url('admin/category/'.$fields->id)}}" method="post">
+        <input type="hidden" name="_method" value="put">
         {{csrf_field()}}
         <table class="add_tab">
             <tbody>
@@ -41,7 +42,7 @@
                         <select name="cate_pid"">
                             <option value="0">==顶级分类==</option>
                             @foreach($categories as $category)
-                                @if($category->id == old('cate_pid'))
+                                @if($category->id == $fields->pid)
                                 <option selected="selected" value="{{$category->id}}">{{$category->name}}</option>
                                 @else
                                 <option value="{{$category->id}}">{{$category->name}}</option>
@@ -53,34 +54,34 @@
                 <tr>
                     <th><i class="require">*</i>分类名称：</th>
                     <td>
-                        <input type="text" class="lg" name="cate_name">
+                        <input type="text" class="lg" name="cate_name" value="{{$fields->name}}">
                         <span><i class="fa fa-exclamation-circle yellow"></i>必须填写分类名称</span>
                     </td>
                 </tr>
                 <tr>
                     <th>分类标题：</th>
                     <td>
-                        <input type="text" class="lg" name="cate_title" value="{{old('cate_title')}}">
+                        <input type="text" class="lg" name="cate_title" value="{{$fields->title}}">
                     </td>
                 </tr>
 
                 <tr>
                     <th>关键词：</th>
                     <td>
-                        <textarea name="cate_keywords">{{old('cate_keywords')}}</textarea>
+                        <textarea name="cate_keywords">{{$fields->keywords}}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <th>描述：</th>
                     <td>
-                        <textarea class="lg" name="cate_description">{{old('cate_description')}}</textarea>
+                        <textarea class="lg" name="cate_description">{{$fields->description}}</textarea>
                         <p>标题可以写30个字</p>
                     </td>
                 </tr>
                 <tr>
                     <th>排序：</th>
                     <td>
-                        <input type="text" class="sm" name="cate_order" value="{{old('cate_order')}}">
+                        <input type="text" class="sm" name="cate_order" value="{{$fields->order}}">
                     </td>
                 </tr>
                 <tr>

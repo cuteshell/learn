@@ -110,7 +110,10 @@ class CategoryController extends CommonController
      */
     public function edit($id)
     {
-        //
+        $fields = Category::find($id);
+        $categories = Category::where('pid', 0)->get();
+
+        return view('admin.category.edit',compact('categories', 'fields'));
     }
 
     /**
@@ -122,7 +125,22 @@ class CategoryController extends CommonController
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $input = $request->except('_method', '_token');
+        $item = [
+            'pid' => $input['cate_pid'],
+            'name' => $input['cate_name'],
+            'title' => $input['cate_title'],
+            'keywords' => $input['cate_keywords'],
+            'description' => $input['cate_description'],
+            'order' => $input['cate_order']
+        ];
+        $ret = $category->update($item);
+        if($ret) {
+            return redirect($this->redirectAfterAddCate);
+        } else {
+            return redirect()->back()->with('fileds',$item)->withErrors('修改失败，请稍后重试');
+        }
     }
 
     /**
