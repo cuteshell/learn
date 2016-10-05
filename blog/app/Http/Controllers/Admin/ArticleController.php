@@ -19,7 +19,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $data = Article::orderBy('id','desc')->paginate(5);
+        $data = Article::orderBy('id','desc')->paginate(8);
         return view('admin.article.index', compact('data'));
     }
 
@@ -71,9 +71,14 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Request $request, $id) {
+
+        $topCategories = Category::where('pid',0)->orderBy('order')->get();
+        $categories = CategoryController::getTree($topCategories);
+        $item = Article::find($id)->toArray();
+        $request->session()->flashInput($item);
+
+        return view('admin.article.edit',compact('categories'));
     }
 
     /**
@@ -83,9 +88,15 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\ArticleRequest $request, $id)
     {
-        //
+        $input = $request->except('_token','_method');
+        $ret = Article::find($id)->update($input);
+        if($ret) {
+            return redirect($this->redirectAfterAdd);
+        } else {
+            return redirect()->back()->withInput($input)->withErrors('更新出错，请联系管理员！');
+        }
     }
 
     /**
@@ -96,6 +107,18 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ret = Article::find($id)->delete();
+        if($ret) {
+            $data = [
+                'status'=>0,
+                'msg'=>'文章删除成功',
+            ];
+        } else {
+            $data = [
+                'status'=>1,
+                'msg'=>'文章删除失败，请联系管理员',
+            ];
+        }
+        return $data;
     }
 }

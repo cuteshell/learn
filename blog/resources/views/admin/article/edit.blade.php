@@ -30,7 +30,8 @@
             </div>
         @endforeach
     </div>
-    <form action="{{url('admin/article')}}" method="post">
+    <form action="{{url('admin/article/'.old('id'))}}" method="post">
+        <input type="hidden" name="_method" value="put">
         {{csrf_field()}}
         <table class="add_tab">
             <tbody>
@@ -40,7 +41,7 @@
                         <select name="cateid"">
                             <option value="0">==文章分类==</option>
                             @foreach($categories as $category)
-                                @if($category->id == old('cate_pid'))
+                                @if($category->id == old('cateid'))
                                 <option selected="selected" value="{{$category->id}}">{{$category->name}}</option>
                                 @else
                                 <option value="{{$category->id}}">{{$category->name}}</option>
@@ -58,7 +59,7 @@
                 <tr>
                     <th>缩略图：</th>
                     <td>
-                        <input type="text" size="50" name="thumb">
+                        <input type="text" size="50" name="thumb" value="{{old('thumb')}}">
                         <script src="{{asset('vender/uploadify/jquery.uploadify.min.js')}}" type="text/javascript"></script>
                         <link rel="stylesheet" type="text/css" href="{{asset('vender/uploadify/uploadify.css')}}">
                         <input id="file_upload" name="file_upload" type="file" multiple="true">
@@ -102,13 +103,13 @@
                 <tr>
                     <th></th>
                     <td>
-                        <img src="" alt="" id="thumb_img" style="max-width: 350px; max-height: 100px">
+                        <img src="{{old('thumb')}}" alt="" id="thumb_img" style="max-width: 350px; max-height: 100px">
                     </td>
                 </tr>
                 <tr>
                     <th>文章标题：</th>
                     <td>
-                        <input type="text" class="lg" name="title">
+                        <input type="text" class="lg" name="title" value="{{old('title')}}">
                         {{--<span><i class="fa fa-exclamation-circle yellow"></i>必须填写分类名称</span>--}}
                     </td>
                 </tr>
@@ -131,7 +132,7 @@
                         <script type="text/javascript" charset="utf-8" src="{{asset('vender/ueditor/ueditor.config.js')}}"></script>
                         <script type="text/javascript" charset="utf-8" src="{{asset('vender/ueditor/ueditor.all.min.js')}}"> </script>
                         <script type="text/javascript" charset="utf-8" src="{{asset('vender/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
-                        <script id="editor" type="text/plain" name="content" style="width:800px;height:500px;"></script>
+                        <script id="editor" type="text/plain" name="content" style="width:800px;height:500px;">{!! old('content') !!}</script>
                         <script type="text/javascript">
                             var ue = UE.getEditor('editor');
                         </script>
