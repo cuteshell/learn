@@ -30,6 +30,10 @@ Route::group(['prefix'=>'admin'], function () {
             Route::resource('category', 'CategoryController');
             Route::post('cate/changeorder', 'CategoryController@changeOrder');
 
+            Route::resource('article', 'ArticleController');
+
+            Route::any('upload', 'CommonController@upload');
+
         });
     });
 

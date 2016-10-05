@@ -16,4 +16,30 @@ class CommonController extends Controller
 
         return $code->make();
     }
+
+    public function upload(Request $request)
+    {
+        $file = $request->file('Filedata');
+
+        if($file->isValid()) {
+            $extension = $file->getClientOriginalExtension();
+            if(!in_array($extension, ['png', 'jpg', 'jpeg'])) {
+                return [
+                    'status'=>1,
+                    'msg'=>'只能上传png和jpg格式的图片文件'
+                ];
+            }
+            $newName = date('YmdHis').mt_rand(100,999).'.'.$extension;
+            $path = $file->move(base_path().'/public/upload',$newName);
+            return [
+                'status'=>0,
+                'msg'=>'/upload/'.$newName,
+            ];
+        } else {
+            return [
+                'status'=>'1',
+                'msg'=>'上传文件失败'
+            ];
+        }
+    }
 }

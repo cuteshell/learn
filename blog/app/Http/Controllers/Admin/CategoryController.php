@@ -26,7 +26,7 @@ class CategoryController extends CommonController
         return view('admin.category.index')->with('data', $data);
     }
 
-    public function getTree($data, $pid = 0, &$tree = [], $prefix = '')
+    public static function getTree($data, $pid = 0, &$tree = [], $prefix = '')
     {
         if(is_int($pid)) {
             $pid = (string)$pid;
@@ -35,7 +35,7 @@ class CategoryController extends CommonController
             if($v->pid == $pid) {
                 $v->name = $prefix.$v->name;
                 $tree[] = $v;
-                $this->getTree($v->children, $v->id, $tree, $prefix.'---');
+                self::getTree($v->children, $v->id, $tree, $prefix.'---');
             }
         }
 
