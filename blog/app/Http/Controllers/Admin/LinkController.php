@@ -9,26 +9,20 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class LinkController extends Controller
+class LinkController extends CommonController
 {
     protected $redirectAfterAdd = '/admin/link';
 
-    public function changeOrder(Request $request)
+    /**
+     * init some member.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function __construct(Link $link)
     {
-        $link = Link::find($request->id);
-        $link->order = $request->order;
-        if($link->update()) {
-            return [
-                'status'=>0,
-                'msg'=>'分类排序修改成功！'
-            ];
-        } else {
-            return [
-                'status'=>1,
-                'msg'=>'分类排序修改失败！'
-            ];
-        }
+        $this->model = $link;
     }
+
     /**
      * Display a listing of the resource.
      *

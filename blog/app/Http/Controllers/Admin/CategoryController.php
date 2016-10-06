@@ -10,9 +10,18 @@ use App\Http\Requests;
 
 class CategoryController extends CommonController
 {
-    protected $redirectAfterAddCate = '/admin/category';
+    protected $redirectAfterAdd = '/admin/category';
 
 
+    /**
+     * Init some member
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function __construct(Category $category)
+    {
+        $this->model = $category;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,22 +51,6 @@ class CategoryController extends CommonController
         return $tree;
     }
 
-    public function changeOrder(Request $request)
-    {
-        $category = Category::find($request->cate_id);
-        $category->order = $request->cate_order;
-        if($category->update()) {
-            return [
-                'status'=>0,
-                'msg'=>'分类排序修改成功！'
-            ];
-        } else {
-            return [
-                'status'=>1,
-                'msg'=>'分类排序修改失败！'
-            ];
-        }
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -78,16 +71,9 @@ class CategoryController extends CommonController
     public function store(Requests\AddCateRequest $request)
     {
         $input = $request->except('_token');
-        $category = Category::create([
-            'pid'=>$input['cate_pid'],
-            'name'=>$input['cate_name'],
-            'title'=>$input['cate_title'],
-            'keywords'=>$input['cate_keywords'],
-            'description'=>$input['cate_description'],
-            'order'=>$input['cate_order'],
-        ]);
+        $category = Category::create($input);
         if($category) {
-            return redirect($this->redirectAfterAddCate);
+            return redirect($this->redirectAfterAdd);
         }
     }
 
@@ -127,19 +113,11 @@ class CategoryController extends CommonController
     {
         $category = Category::find($id);
         $input = $request->except('_method', '_token');
-        $item = [
-            'pid' => $input['cate_pid'],
-            'name' => $input['cate_name'],
-            'title' => $input['cate_title'],
-            'keywords' => $input['cate_keywords'],
-            'description' => $input['cate_description'],
-            'order' => $input['cate_order']
-        ];
-        $ret = $category->update($item);
+        $ret = $category->update($input);
         if($ret) {
-            return redirect($this->redirectAfterAddCate);
+            return redirect($this->redirectAfterAdd);
         } else {
-            return redirect()->back()->with('fileds',$item)->withErrors('修改失败，请稍后重试');
+            return redirect()->back()->with('fileds',$input)->withErrors('修改失败，请稍后重试');
         }
     }
 

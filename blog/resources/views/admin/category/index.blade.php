@@ -55,12 +55,12 @@
 </form>
 <!--搜索结果页面 列表 结束-->
 <script>
-    function changeOrder(obj, cate_id) {
-        var cate_order = $(obj).val();
+    function changeOrder(obj, id) {
+        var order = $(obj).val();
         $.post("{{url('admin/cate/changeorder')}}", {
             '_token':'{{csrf_token()}}',
-            'cate_id':cate_id,
-            'cate_order':cate_order}, function(data) {
+            'id':id,
+            'order':order}, function(data) {
             if(data.status == 0) {
                 layer.alert(data.msg, {icon:6});
             } else {

@@ -24,14 +24,14 @@ class AddCateRequest extends Request
     public function rules()
     {
         return [
-            'cate_name'=>'required'
+            'name'=>'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'cate_name.required'=>'分类名称不能为空！'
+            'name.required'=>'分类名称不能为空！'
         ];
     }
 }

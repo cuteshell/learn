@@ -38,7 +38,7 @@
                 <tr>
                     <th width="120"><i class="require">*</i>顶级分类：</th>
                     <td>
-                        <select name="cate_pid"">
+                        <select name="pid"">
                             <option value="0">==顶级分类==</option>
                             @foreach($categories as $category)
                                 @if($category->id == $fields->pid)
@@ -53,34 +53,34 @@
                 <tr>
                     <th><i class="require">*</i>分类名称：</th>
                     <td>
-                        <input type="text" class="lg" name="cate_name" value="{{$fields->name}}">
+                        <input type="text" class="lg" name="name" value="{{$fields->name}}">
                         <span><i class="fa fa-exclamation-circle yellow"></i>必须填写分类名称</span>
                     </td>
                 </tr>
                 <tr>
                     <th>分类标题：</th>
                     <td>
-                        <input type="text" class="lg" name="cate_title" value="{{$fields->title}}">
+                        <input type="text" class="lg" name="title" value="{{$fields->title}}">
                     </td>
                 </tr>
 
                 <tr>
                     <th>关键词：</th>
                     <td>
-                        <textarea name="cate_keywords">{{$fields->keywords}}</textarea>
+                        <textarea name="keywords">{{$fields->keywords}}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <th>描述：</th>
                     <td>
-                        <textarea class="lg" name="cate_description">{{$fields->description}}</textarea>
+                        <textarea class="lg" name="description">{{$fields->description}}</textarea>
                         <p>标题可以写30个字</p>
                     </td>
                 </tr>
                 <tr>
                     <th>排序：</th>
                     <td>
-                        <input type="text" class="sm" name="cate_order" value="{{$fields->order}}">
+                        <input type="text" class="sm" name="order" value="{{$fields->order}}">
                     </td>
                 </tr>
                 <tr>

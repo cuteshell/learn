@@ -10,11 +10,31 @@ use App\Http\Requests;
 
 class CommonController extends Controller
 {
+
+    protected $model;
+
     public function code()
     {
         $code = new Code();
 
         return $code->make();
+    }
+
+    public function changeOrder(Request $request)
+    {
+        $link = $this->model->find($request->id);
+        $link->order = $request->order;
+        if($link->update()) {
+            return [
+                'status'=>0,
+                'msg'=>'排序修改成功！'
+            ];
+        } else {
+            return [
+                'status'=>1,
+                'msg'=>'排序修改失败！'
+            ];
+        }
     }
 
     public function upload(Request $request)

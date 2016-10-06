@@ -37,10 +37,10 @@
                 <tr>
                     <th width="120"><i class="require">*</i>顶级分类：</th>
                     <td>
-                        <select name="cate_pid"">
+                        <select name="pid"">
                             <option value="0">==顶级分类==</option>
                             @foreach($categories as $category)
-                                @if($category->id == old('cate_pid'))
+                                @if($category->id == old('pid'))
                                 <option selected="selected" value="{{$category->id}}">{{$category->name}}</option>
                                 @else
                                 <option value="{{$category->id}}">{{$category->name}}</option>
@@ -52,34 +52,34 @@
                 <tr>
                     <th><i class="require">*</i>分类名称：</th>
                     <td>
-                        <input type="text" class="lg" name="cate_name">
+                        <input type="text" class="lg" name="name">
                         <span><i class="fa fa-exclamation-circle yellow"></i>必须填写分类名称</span>
                     </td>
                 </tr>
                 <tr>
                     <th>分类标题：</th>
                     <td>
-                        <input type="text" class="lg" name="cate_title" value="{{old('cate_title')}}">
+                        <input type="text" class="lg" name="title" value="{{old('title')}}">
                     </td>
                 </tr>
 
                 <tr>
                     <th>关键词：</th>
                     <td>
-                        <textarea name="cate_keywords">{{old('cate_keywords')}}</textarea>
+                        <textarea name="keywords">{{old('keywords')}}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <th>描述：</th>
                     <td>
-                        <textarea class="lg" name="cate_description">{{old('cate_description')}}</textarea>
+                        <textarea class="lg" name="description">{{old('description')}}</textarea>
                         <p>标题可以写30个字</p>
                     </td>
                 </tr>
                 <tr>
                     <th>排序：</th>
                     <td>
-                        <input type="text" class="sm" name="cate_order" value="{{old('cate_order')}}">
+                        <input type="text" class="sm" name="order" value="{{old('order')}}">
                     </td>
                 </tr>
                 <tr>

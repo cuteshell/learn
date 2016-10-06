@@ -8,30 +8,18 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class NavController extends Controller
+class NavController extends CommonController
 {
     protected $redirectAfterAdd = '/admin/nav';
 
     /**
-     * Change display order of Navs
+     * Init some member
      *
      * @return \Illuminate\Http\Response
      */
-    public function changeOrder(Request $request)
+    public function __construct(Nav $nav)
     {
-        $link = Nav::find($request->id);
-        $link->order = $request->order;
-        if($link->update()) {
-            return [
-                'status'=>0,
-                'msg'=>'排序修改成功！'
-            ];
-        } else {
-            return [
-                'status'=>1,
-                'msg'=>'排序修改失败！'
-            ];
-        }
+        $this->model = $nav;
     }
     /**
      * Display a listing of the resource.
