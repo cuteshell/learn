@@ -34,6 +34,9 @@ Route::group(['prefix'=>'admin'], function () {
 
             Route::any('upload', 'CommonController@upload');
 
+            Route::resource('link', 'LinkController');
+            Route::post('link/changeorder', 'LinkController@changeOrder');
+
         });
     });
 

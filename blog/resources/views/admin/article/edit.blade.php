@@ -31,7 +31,7 @@
         @endforeach
     </div>
     <form action="{{url('admin/article/'.old('id'))}}" method="post">
-        <input type="hidden" name="_method" value="put">
+        {{method_field('put')}}
         {{csrf_field()}}
         <table class="add_tab">
             <tbody>
