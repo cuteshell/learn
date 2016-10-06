@@ -32,8 +32,8 @@ class LinkRequest extends Request
     public function messages()
     {
         return [
-            'name.required'=>'友情链接名称不能为空',
-            'url.required'=>'友情链接地址不能为空',
+            'name.required'=>'链接名称不能为空',
+            'url.required'=>'链接地址不能为空',
         ];
     }
 }

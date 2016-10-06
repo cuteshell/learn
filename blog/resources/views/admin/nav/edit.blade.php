@@ -4,7 +4,7 @@
 <!--面包屑导航 开始-->
 <div class="crumb_warp">
     <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-    <i class="fa fa-home"></i> <a href="{{url('admin.info')}}">首页</a> &raquo; <a href="{{url('admin/link')}}">链接管理</a> &raquo; 添加链接
+    <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo; <a href="{{url('admin/nav')}}">导航管理</a> &raquo; 修改导航
 </div>
 <!--面包屑导航 结束-->
 
@@ -15,8 +15,8 @@
     </div>
     <div class="result_content">
         <div class="short_wrap">
-            <a href="{{url('admin/link/create')}}"><i class="fa fa-plus"></i>添加链接</a>
-            <a href="{{url('admin/link')}}"><i class="fa fa-refresh"></i>全部链接</a>
+            <a href="{{url('admin/nav/create')}}"><i class="fa fa-plus"></i>添加导航</a>
+            <a href="{{url('admin/nav')}}"><i class="fa fa-refresh"></i>全部导航</a>
         </div>
     </div>
 </div>
@@ -30,29 +30,28 @@
             </div>
         @endforeach
     </div>
-    <form action="{{url('admin/link')}}" method="post">
+    <form action="{{url('admin/nav/'.old('id'))}}" method="post">
+        {{method_field('put')}}
         {{csrf_field()}}
         <table class="add_tab">
             <tbody>
                 <tr>
-                    <th><i class="require">*</i>链接名称：</th>
+                    <th><i class="require">*</i>导航名称：</th>
                     <td>
                         <input type="text" class="lg" name="name" value="{{old('name')}}">
                         <span><i class="fa fa-exclamation-circle yellow"></i>必须填写链接名称</span>
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="require">*</i>链接地址：</th>
+                    <th>导航别名：</th>
                     <td>
-                        <input type="text" class="lg" name="url" value="{{old('url')}}">
-                        <span><i class="fa fa-exclamation-circle yellow"></i>地址必须以http://开头</span>
+                        <input type="text" class="lg" name="alias" value="{{old('alias')}}">
                     </td>
                 </tr>
-
                 <tr>
-                    <th>描述：</th>
+                    <th><i class="require">*</i>导航地址：</th>
                     <td>
-                        <textarea name="description">{{old('description')}}</textarea>
+                        <input type="text" class="lg" name="url" value="{{old('url')}}">
                     </td>
                 </tr>
                 <tr>

@@ -37,6 +37,8 @@ Route::group(['prefix'=>'admin'], function () {
             Route::resource('link', 'LinkController');
             Route::post('link/changeorder', 'LinkController@changeOrder');
 
+            Route::resource('nav', 'NavController');
+            Route::post('nav/changeorder', 'NavController@changeOrder');
         });
     });
 
