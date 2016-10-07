@@ -34,11 +34,15 @@ Route::group(['prefix'=>'admin'], function () {
 
             Route::any('upload', 'CommonController@upload');
 
-            Route::resource('link', 'LinkController');
             Route::post('link/changeorder', 'LinkController@changeOrder');
+            Route::resource('link', 'LinkController');
 
-            Route::resource('nav', 'NavController');
             Route::post('nav/changeorder', 'NavController@changeOrder');
+            Route::resource('nav', 'NavController');
+
+            Route::post('config/changeorder', 'ConfigController@changeOrder');
+            Route::post('config/changecontent', 'ConfigController@changeContent');
+            Route::resource('config', 'ConfigController');
         });
     });
 
