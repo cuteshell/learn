@@ -11,10 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['namespace' => 'Home'], function () {
+    Route::get('/', 'IndexController@index');
+    Route::get('/category', 'IndexController@category');
+    Route::get('/article', 'IndexController@article');
 });
-
 
 Route::group(['prefix'=>'admin'], function () {
 
