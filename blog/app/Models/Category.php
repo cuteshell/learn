@@ -18,4 +18,9 @@ class Category extends Model
     {
         return $this->belongsTo('App\Models\Category','pid');
     }
+
+    public function article()
+    {
+        return $this->hasMany('App\Models\Article', 'cateid')->orderBy('time', 'desc');
+    }
 }

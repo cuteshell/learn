@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Models\Article;
 use App\Models\Nav;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,11 @@ class CommonController extends Controller
     {
         $navs = Nav::all();
 
-        view()->share('navs', $navs);
+        $righthot = Article::orderBy('view', 'desc')->take(5)->get();
+
+        //8篇最新文章
+        $latest = Article::orderBy('time', 'desc')->take(8)->get();
+
+        view()->share(['navs'=>$navs, 'righthot'=>$righthot, 'latest'=>$latest]);
     }
 }

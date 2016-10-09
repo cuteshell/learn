@@ -13,8 +13,8 @@
 
 Route::group(['namespace' => 'Home'], function () {
     Route::get('/', 'IndexController@index');
-    Route::get('/category', 'IndexController@category');
-    Route::get('/article', 'IndexController@article');
+    Route::get('/category/{id}', 'IndexController@category');
+    Route::get('/a/{id}', 'IndexController@article');
 });
 
 Route::group(['prefix'=>'admin'], function () {
