@@ -46,6 +46,5 @@
 <footer>
     <p>{{Config::get('web.web_copyright')}}</p>
 </footer>
-<script src="{{asset('resource/front/js/silder.js')}}"></script>
 </body>
 </html>

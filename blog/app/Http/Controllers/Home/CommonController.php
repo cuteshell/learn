@@ -13,7 +13,7 @@ class CommonController extends Controller
 {
     public function __construct()
     {
-        $navs = Nav::all();
+        $navs = Nav::orderBy('order')->get();
 
         $righthot = Article::orderBy('view', 'desc')->take(5)->get();
 
